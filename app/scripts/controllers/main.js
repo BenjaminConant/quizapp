@@ -42,7 +42,7 @@ angular.module('quizApp')
   ];
 
   $scope.userPoints = 0;
-  $scope.message = "welcome to the game@"
+  $scope.message = "welcome to the game"
 
   $scope.checkAnswer = function(questionAnswer, userAnswer) {
 
@@ -50,13 +50,40 @@ angular.module('quizApp')
     if (questionAnswer === userAnswer) {
       $scope.message = "your the best you ++ 7000pts";
       $scope.userPoints += 7000;
+      $scope.messageColorGreen = true;
+      $scope.messageColorRed = false;
     } else {
-      $scope.message =  "your wrong you fool!!! = 10,000";
+      $scope.message =  "your wrong you fool!!! - 10,000";
       $scope.userPoints -= 10000;
+      $scope.messageColorRed = true;
+      $scope.messageColorGreen = false;
     }
 
   };
 
+  $scope.shouldBeRed = function() {
+    if($scope.userPoints < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  $scope.messageColorRed = false;
+
+  $scope.messageColorGreen = true;
+
+  $scope.newQuestion = {
+    'q': "",
+    'options': [],
+    'answer': "",
+    'difficulty': 0,
+  };
+
+  $scope.addQuestion = function() {
+    $scope.newQuestion.answer = $scope.newQuestion.options[0].value;
+    $scope.quiz.push($scope.newQuestion);
+    console.log($scope.quiz);
+  }
 
   });

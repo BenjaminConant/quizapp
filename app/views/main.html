@@ -15,17 +15,35 @@
 </div>
 
 <div class="jumbotron text-center" style="color:green; font-size:200px;">
-  <p style="font-size:50px;">{{message}}</p>
-  <p style="font-size:200px;">{{userPoints | number}}</p>
+  <p ng-class="{red:messageColorRed, green:messageColorGreen}" style="font-size:50px;">{{message}}</p>
+  <p ng-class="{red:shouldBeRed()}" style="font-size:200px;">{{userPoints | number}}</p>
   </div>
 
 <div>
-  <li ng-repeat="question in quiz | orderBy:'difficulty'" style="list-style-type: none">
+  <li ng-model="quiz" ng-repeat="question in quiz | orderBy:'difficulty'" style="list-style-type: none">
     <strong>{{$index +1}}. {{ question.q }}</strong>
   <ul>
     <li ng-click="checkAnswer(question.answer, option.value)" class="btn btn-danger" style="display:block; width:17%; margin: 13px" ng-repeat="option in question.options">{{option.value}}</li>
   </ul>
   </li>
+</div>
+
+<div>{{newQuestion.q}}</div>
+<div>{{newQuestion.options[0].value}}</div>
+<div>{{newQuestion.options[1].value}}</div>
+<div>{{newQuestion.options[2].value}}</div>
+<div>{{newQuestion.options[3].value}}</div>
+
+<div>
+  <form ng-submit>
+    <input placeholder="Your Question" ng-model="newQuestion.q">
+    <input placeholder="Right Answer" ng-model="newQuestion.options[0].value" value="">
+    <input placeholder="Other Answer" ng-model="newQuestion.options[1].value">
+    <input placeholder="Other Answer" ng-model="newQuestion.options[2].value">
+    <input placeholder="Other Answer" ng-model="newQuestion.options[3].value">
+    <input placeholder="diff" ng-model="newQuestion.difficulty">
+    <button class="btn btn-primary" ng-click="addQuestion()">Add Question</button>
+  </form>
 </div>
 
 
@@ -115,7 +133,7 @@
 
 
 
-<div class="container">
+<!-- <div class="container">
   <div class="jumbotron question">
     <form action="">
       <h2>Insert Question Here</h2>
