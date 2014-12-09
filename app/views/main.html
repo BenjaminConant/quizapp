@@ -20,29 +20,36 @@
   </div>
 
 <div>
-  <li ng-model="quiz" ng-repeat="question in quiz | orderBy:'difficulty'" style="list-style-type: none">
+  <li ng-repeat="question in quiz | orderBy:'difficulty'" style="list-style-type: none">
     <strong>{{$index +1}}. {{ question.q }}</strong>
-  <ul>
-    <li ng-click="checkAnswer(question.answer, option.value)" class="btn btn-danger" style="display:block; width:17%; margin: 13px" ng-repeat="option in question.options">{{option.value}}</li>
+  <ul ng-repeat="option in question.options">
+    <li ng-click="checkAnswer(question, option.value)" class="btn btn-danger" style="display:block; width:23%; margin: 13px">{{option.value}}</li>
   </ul>
   </li>
 </div>
 
-<div>{{newQuestion.q}}</div>
-<div>{{newQuestion.options[0].value}}</div>
-<div>{{newQuestion.options[1].value}}</div>
-<div>{{newQuestion.options[2].value}}</div>
-<div>{{newQuestion.options[3].value}}</div>
+<div> 
+  <ul>
+    <li><strong>{{newQuestion.q}}</strong></li>
+  </ul>
+  <ul>
+    <li ng-show="newQuestion.options[0].value" class="btn btn-danger" style="display:block; width:23%; margin: 13px">{{newQuestion.options[0].value}}</li>
+    <li ng-show="newQuestion.options[1].value" class="btn btn-danger" style="display:block; width:23%; margin: 13px">{{newQuestion.options[1].value}}</li>
+    <li ng-show="newQuestion.options[2].value" class="btn btn-danger" style="display:block; width:23%; margin: 13px">{{newQuestion.options[2].value}}</li>
+    <li ng-show="newQuestion.options[3].value" class="btn btn-danger" style="display:block; width:23%; margin: 13px">{{newQuestion.options[3].value}}</li>
+  </ul>
+</div>
+
 
 <div>
-  <form ng-submit>
+  <form ng-submit="addQuestion()">
     <input placeholder="Your Question" ng-model="newQuestion.q">
-    <input placeholder="Right Answer" ng-model="newQuestion.options[0].value" value="">
+    <input placeholder="Right Answer" ng-model="newQuestion.options[0].value">
     <input placeholder="Other Answer" ng-model="newQuestion.options[1].value">
     <input placeholder="Other Answer" ng-model="newQuestion.options[2].value">
     <input placeholder="Other Answer" ng-model="newQuestion.options[3].value">
     <input placeholder="diff" ng-model="newQuestion.difficulty">
-    <button class="btn btn-primary" ng-click="addQuestion()">Add Question</button>
+    <input class="btn btn-primary" type="submit" value="Add Question">
   </form>
 </div>
 
